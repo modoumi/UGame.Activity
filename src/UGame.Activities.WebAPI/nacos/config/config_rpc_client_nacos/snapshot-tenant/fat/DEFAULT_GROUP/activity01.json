@@ -1,0 +1,43 @@
+{
+  "AppOptions": {
+    "AppId": "activity01",
+    "ServerType": "Normal",
+    "ServerUrl": "http://192.168.1.128:9030",
+    "UseVerifyClientRequest": false,
+    "ImageBaseUrl": "http://192.168.1.128/upload/images",
+    "MessageImgUrl": "https://upload.777gana.com",
+    "MarqueeLangKey": "activity01_marquee",
+    "MyGameRandomAppNumber": 6
+  },
+  "Project": {
+    "ProjectId": "activity01",
+    "Description": "活动服务列表1-activity01"
+  },
+  "RabbitMQ": {
+    "MessageAssemblies": [
+      "Xxyy.MQ.dll",
+      "SActivity.Redpack.API.dll",
+      "SActivity.TreasureBox.API.dll"
+    ],
+    "ConsumerAssemblies": [
+      "+SActivity.Redpack.API.dll",
+      "+SActivity.TreasureBox.API.dll",
+      "+SActivity.RewardCenter.API.dll",
+      "+SActivity.Tasks.API.dll",
+      "SActivity.Signin.API.dll"
+    ]
+  },
+  "AspNet": {
+    "PathBase": "/activity01",
+    "HostingStartupAssemblies":["Activities.WebAPI.dll","SActivity.TreasureBox.API.dll"]
+  },
+  "ApiAccessFilter": {
+    "DefaultFilterName": "default",
+    "Filters": {
+      "quartz": {
+        "Enabled": false,
+        "AllowIps": "intranet"
+      }
+    }
+  }
+}

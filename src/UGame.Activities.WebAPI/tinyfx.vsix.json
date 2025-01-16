@@ -1,0 +1,63 @@
+{
+    "DockerPublish": {
+        "DefaultConfig": "dev",
+        "Configs": [
+            {
+                "Name": "dev",
+                "Desc": "开发环境",
+                "BuildMode": 0,
+                "ServerIp": "192.168.1.121",
+                "Port": "22",
+                "Username": "root",
+                "Password": "Ing*zhixin@2022",
+                "IsSsh": false,
+                "ServerPath": "/root/hosts/activities01",
+                "ImageName": "mcr.microsoft.com/dotnet/aspnet:6.0",
+                "Containers": [
+                    {
+                        "Name": "activities01",
+                        "HttpPort": 9030,
+                        "GrpcPort": 0,
+                        "WebsocketPort": 0,
+                        "ServerPath": "",
+                        "OptionsString": "-e DOTNET_ENVIRONMENT=dev",
+                        "CommandsString": null,
+                        "LimitCoreFile": true,
+                        "IsDefault": true,
+                        "IsHost": false,
+                        "IsAspNet": true,
+                        "Ports": "http:9030"
+                    }
+                ]
+            },
+            {
+                "Name": "fat",
+                "Desc": "测试环境",
+                "BuildMode": 0,
+                "ServerIp": "192.168.1.128",
+                "Port": "22",
+                "Username": "root",
+                "Password": "Ing*zhixin@2022",
+                "IsSsh": false,
+                "ServerPath": "/root/hosts/activities01",
+                "ImageName": "mcr.microsoft.com/dotnet/aspnet:6.0",
+                "Containers": [
+                    {
+                        "Name": "activities01",
+                        "HttpPort": 9030,
+                        "GrpcPort": 0,
+                        "WebsocketPort": 0,
+                        "ServerPath": "",
+                        "OptionsString": "-e DOTNET_ENVIRONMENT=fat",
+                        "CommandsString": null,
+                        "LimitCoreFile": true,
+                        "IsDefault": true,
+                        "IsHost": false,
+                        "IsAspNet": true,
+                        "Ports": "http:9030"
+                    }
+                ]
+            }
+        ]
+    }
+}

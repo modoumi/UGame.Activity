@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Activities.WebAPI": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "fat"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5030"
+    }
+  }
+}

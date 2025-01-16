@@ -1,0 +1,17 @@
+{
+  "SqlSugar": {
+    "DefaultElement": "ing-dev",
+    "Elements": [
+      {
+        "Name": "ing-dev",
+        "DatabaseType": 0,
+        "ConnectionString": "server=192.168.1.120;port=3306;database=ing;user id=root;password=root;sslmode=Disabled;allowuservariables=True;MaximumPoolSize=100",
+        "OutputPath": "Repositories",
+        "Namespace": "SActivity.Rebate.API.Repositories",
+        "UseSubPath": true,
+        "UseTinyFx": false,
+        "IsDeletePartial": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,298 @@
+{
+    "AppOptions": {
+        "AppId": "demo",
+        "ServerType": "Normal",
+        "ServerUrl": null,
+        "UseVerifyClientRequest": false
+    },
+    "Project": {
+        "ProjectId": "demo",
+        "Description": "demo-WebAPI",
+        "ConsoleLogLevel": "Debug",
+        "MinThreads": 0,
+        "ResponseErrorMessage": true,
+        "ResponseErrorDetail": true,
+        "IsDebugEnvironment": true
+    },
+    "Serilog": {
+        "Using": [
+            "Serilog.Sinks.Console",
+            "Serilog.Sinks.File"
+        ],
+        "MinimumLevel": {
+            "Default": "Verbose",
+            "Override": {
+                "Microsoft": "Warning",
+                "System": "Warning"
+            }
+        },
+        "WriteTo": {
+            "ConsoleSink": {
+                "Name": "Console",
+                "Args": {
+                    "restrictedToMinimumLevel": "Debug",
+                    "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+                    "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"
+                }
+            },
+            "ELKSink": {
+                "Name": "TinyFxELK",
+                "Args": {
+                    "restrictedToMinimumLevel": "Debug",
+                    "nodeUris": "http://192.168.1.120:9200",
+                    "autoRegisterTemplate": true,
+                    "autoRegisterTemplateVersion": "ESv7",
+                    "batchPostingLimit": 1
+                }
+            }
+        },
+        "Enrich": [],
+        "Destructure": [],
+        "Filter": [],
+        "Properties": {}
+    },
+    "SqlSugar": {
+        "Enabled": true,
+        "DbConfigProvider": null,
+        "DbRoutingProvider": null,
+        "DefaultConnectionStringName": "default",
+        "ConnectionStrings": {
+            "default": {
+                "DbType": "MySql",
+                "ConnectionString": "server=192.168.1.120;port=3306;database=ing_qa;uid=root;pwd=root;sslmode=Disabled;allowuservariables=True;AllowLoadLocalInfile=true;",
+                "LogEnabled": false,
+                "LogSqlMode": 2,
+                "SlaveEnabled": false
+            },
+            "game": {
+                "DbType": "MySql",
+                "ConnectionString": "server=192.168.1.120;port=3306;database=gdb_qa;uid=root;pwd=root;sslmode=Disabled;allowuservariables=True;AllowLoadLocalInfile=true;",
+                "LogEnabled": false,
+                "LogSqlMode": 2,
+                "SlaveEnabled": false
+            }
+        }
+    },
+    "Data": {
+        "DefaultConnectionStringName": "default",
+        "ConnectionStrings": {
+            "default": {
+                "ProviderName": "mysql",
+                "ConnectionString": "server=192.168.1.120;port=3306;database=ing_qa;user id=root;password=root;sslmode=Disabled;allowuservariables=True",
+                "ReadConnectionString": "",
+                "CommandTimeout": "30",
+                "OrmMap": ""
+            },
+            "game": {
+                "ProviderName": "mysql",
+                "ConnectionString": "server=192.168.1.120;port=3306;database=gdb_qa;user id=root;password=root;sslmode=Disabled;allowuservariables=True",
+                "ReadConnectionString": "",
+                "CommandTimeout": "30",
+                "OrmMap": ""
+            }
+        }
+    },
+    "Redis": {
+        "DefaultConnectionStringName": "default",
+        "UseDbCaching": true,
+        "RunNewTaskWhenSync": false,
+        "ConnectionStrings": {
+            "default": {
+                "ConnectionString": "192.168.1.128:6379,192.168.1.128:6380,192.168.1.128:6381,defaultDatabase=0,keepAlive=-1",
+                "SerializeMode": "json",
+                "NamespaceMap": ""
+            }
+        },
+        "ConsumerAssemblies": []
+    },
+    "RabbitMQ": {
+        "Enabled": true,
+        "LogEnabled": true,
+        "SACBindDelay": 120,
+        "RedisConnectionStringName": "default",
+        "DefaultConnectionStringName": "default",
+        "ConnectionStrings": {
+            "default": {
+                "UseShortNaming": false,
+                "UseEnvironmentVirtualHost": false,
+                "UseQuorum": false,
+                "ConnectionString": "host=192.168.1.128:5672;username=root;password=root;publisherConfirms=true;timeout=60"
+            }
+        },
+        "ConsumerAssemblies": []
+    },
+    "DbCaching": {
+        "Enabled": true,
+        "PublishMode": "Redis",
+        "RedisConnectionStringName": "default",
+        "MQConnectionStringName": "default",
+        "RefleshTables": []
+    },
+    "AutoMapper": {
+        "Assemblies": []
+    },
+    "JwtAuth": {
+        "Enabled": true,
+        "DebugToken": null,
+        "SignSecret": "ABASDfasfwe@#45346dfg",
+        "DynamicSignSecret": false,
+        "EncryptSecret": "",
+        "Issuer": "tinyfx.com",
+        "Audience": "tinyfx.com",
+        "ValidateLifetime": false,
+        "ExpireMinutes": 30
+    },
+    "IDGenerator": {
+        "Enabled": false,
+        "UseRedis": true,
+        "RedisConnectionStringName": "default",
+        "RedisExpireSeconds": 600,
+        "DataCenterId": 0,
+        "WorkerId": 0,
+        "WorkerIdBits": 10
+    },
+    "Random": {
+        "DefaultProviderName": "default",
+        "Providers": {
+            "default": {
+                "RandomType": "TinyFx.Randoms.RNGReader,TinyFx",
+                "Options": {
+                    "Enabled": false,
+                    "RouletteSamplingCount": 100000,
+                    "ShuffleSamplingCount": 100000,
+                    "RouletteDeviation": 20,
+                    "ShuffleDeviation": 20,
+                    "CheckInterval": 10000
+                }
+            }
+        }
+    },
+    "Smtp": {
+        "DefaultClientName": "default",
+        "Clients": {
+            "xxyy": {
+                "Host": "smtpout.secureserver.net",
+                "Port": 587,
+                "UseSsl": true,
+                "FromAddress": "operate@ingame777.com",
+                "UserName": "operate@ingame777.com",
+                "Password": "ING12345678",
+                "FromName": "xxyy"
+            }
+        },
+        "SendTos": {
+            "xxyy": {
+                "To": [
+                    "ing_ceshi@163.com"
+                ],
+                "CC": null
+            }
+        }
+    },
+    "HttpClient": {
+        "Clients": {
+            "xxyy.banks": {
+                "BaseAddress": "http://192.168.1.128:9008",
+                "RequestHeaders": [],
+                "Timeout": 100000,
+                "RetryCount": 3,
+                "Settings": []
+            },
+            "xxyy.server": {
+                "BaseAddress": "http://192.168.1.128:9009",
+                "RequestHeaders": [],
+                "Timeout": 100000,
+                "RetryCount": 3,
+                "Settings": []
+            },
+            "xxyy.partners": {
+                "BaseAddress": "http://192.168.1.128:9010",
+                "RequestHeaders": [],
+                "Timeout": 100000,
+                "RetryCount": 3,
+                "Settings": []
+            },
+            "xxyy_partners": {
+                "BaseAddress": "http://192.168.1.128:9010",
+                "RequestHeaders": [],
+                "Timeout": 100000,
+                "RetryCount": 3,
+                "Settings": []
+            }
+        }
+    },
+    "AspNet": {
+        "UseRequestBuffering": true,
+        "UseApiActionResultFilter": true,
+        "UseModelStateInvalid": true,
+        "UseResponseCompression": true,
+        "UseApiVersioning": true,
+        "RequestPeriodSecond": 15,
+        "RequestBytesPerSecond": 100,
+        "Swagger": {
+            "Enabled": true,
+            "UseSchemaFullName": false
+        },
+        "PathBase": null,
+        "HostingStartupAssemblies": [],
+        "DynamicApiAssemblies": []
+    },
+    "RequestLogging": {
+        "Enabled": true,
+        "LogLevel": "Debug",
+        "CustomeExceptionLevel": "Information",
+        "LogRequestHeaders": false,
+        "LogRequestBody": true,
+        "LogResponseBody": false,
+        "Urls": [
+            "*"
+        ]
+    },
+    "SessionAndCookie": {
+        "ApplicationName": "xxyy",
+        "RedisConnectionStringName": null,
+        "UseCookieIdentity": true,
+        "CookieTimeout": 3,
+        "Domain": null,
+        "SameSiteMode": "Unspecified",
+        "UseSession": false,
+        "SessionTimeout": 20
+    },
+    "Cors": {
+        "UseCors": {
+            "Enabled": true,
+            "EnabledReferer": false,
+            "PoliciesProvider": "",
+            "DefaultPolicy": null
+        },
+        "Policies": {
+            "default": {
+                "Origins": "*",
+                "Methods": "*",
+                "Headers": "*",
+                "MaxAge": 86400
+            }
+        }
+    },
+    "ApiAccessFilter": {
+        "DefaultFilterName": "default",
+        "FiltersProvider": "",
+        "Filters": {
+            "default": {
+                "Enabled": false,
+                "EnableIntranet": true,
+                "AllowIps": ""
+            }
+        }
+    },
+    "ResponseCaching": {
+        "Enabled": false,
+        "CacheProfiles": {
+            "default": {
+                "Duration": 120,
+                "Location": "Any",
+                "VaryByQueryKeys": []
+            }
+        }
+    }
+}

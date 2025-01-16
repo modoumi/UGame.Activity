@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <DocumentationFile></DocumentationFile>
+        <Title>任务中心</Title>
+        <Description>任务服务</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+		<PackageReference Include="Xxyy.Common" Version="1.4.163" />
+		<PackageReference Include="Xxyy.SMS" Version="1.4.124" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Commons\SActivity.Common\SActivity.Common.csproj" />
+    </ItemGroup>
+
+</Project>

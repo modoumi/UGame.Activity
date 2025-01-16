@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+		<Title>兑换码</Title>
+		<Description>活动：兑换码</Description>
+		<Copyright></Copyright>
+		<RepositoryUrl>http://192.168.1.120:9080/sactivity/sactivity01</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>TreasureBox</PackageTags>
+		<Authors />
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Xxyy.Common" Version="1.4.163" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+</Project>

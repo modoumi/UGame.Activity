@@ -1,0 +1,25 @@
+{
+  "NugetItems": [
+    {
+      "NugetKey": "oy2azc4vyfqzcrqqk6raqd2ltz6yqiuuzlozz366ws3mci",
+      "NugetSource": "https://api.nuget.org/v3/index.json",
+      "Mode": 0
+    },
+    {
+      "NugetKey": "9c922b9d-16f2-3ccf-9a3a-1f15cf72d0fb",
+      "NugetSource": "http://192.168.1.120:8081/repository/nuget-hosted/",
+      "Mode": 2
+    }
+  ],
+  "NugetIndex": 1,
+  "Projects": [
+  ],
+  "VsixItem": {
+    "ProjectPath": null,
+    "VsixPath": null,
+    "ConfigPath": null,
+    "Token": "3twuo3jaffjjlqjzbn66ijxcma2qffswyt7ajekwnnsg62jbewgq",
+    "PublisherExePath": null,
+    "MSBuildExePath": null
+  }
+}

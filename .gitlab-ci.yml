@@ -1,0 +1,105 @@
+stages:
+  - build
+  - deploy
+
+image: mcr.microsoft.com/dotnet/sdk:6.0
+variables:
+  IMAGE_NAME: "lobby.server"
+  PROJECT_CSPROJ: "src/Lobby.WebAPI/Lobby.WebAPI.csproj"
+  CI_REGISTRY_HARBOR: "192.168.1.125/xxyy" # harbor 镜像地址
+  CI_REGISTRY_AWS: "298519563828.dkr.ecr.us-west-2.amazonaws.com" # AWS 镜像地址
+
+  MY_NUGET_URL: "http://123.127.93.180:25555/v3/index.json"
+  PROJECT_BUILD: "Release"
+  OBJECTS_DIRECTORY: "obj"
+  NUGET_PACKAGES_DIRECTORY: ".nuget"
+  PUBLISH_PATH: "publish"
+  SOURCE_CODE_PATH: "*/*/"
+
+# CI_COMMIT_SHORT_SHA 哈希
+# CI_COMMIT_REF_NAME 分支名
+# CI_COMMIT_TAG tag名
+# CI_PROJECT_DIR 项目路径
+# CI_PROJECT_NAME 项目名称
+
+cache:
+  key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+  paths:
+    - "$SOURCE_CODE_PATH$OBJECTS_DIRECTORY/project.assets.json"
+    - "$SOURCE_CODE_PATH$OBJECTS_DIRECTORY/*.csproj.nuget.*"
+    - "$NUGET_PACKAGES_DIRECTORY"
+  policy: pull-push
+
+build-job:
+  stage: build
+  tags:
+    - aspnet-shell-runner
+  only:
+    refs:
+      - tags
+  script:
+    - echo -e "033[33m ===> 分支名字:$CI_COMMIT_REF_NAME 目录:$CI_PROJECT_DIR \033[0m"
+    #- dotnet nuget add source $MY_NUGET_URL -n my_nuget
+    - dotnet nuget list source
+    - echo -e "033[33m ===> [开始] 还原依赖项 \033[0m"
+    - echo "命令dotnet restore $CI_PROJECT_DIR/$PROJECT_CSPROJ"
+    - dotnet restore $CI_PROJECT_DIR/$PROJECT_CSPROJ --packages $NUGET_PACKAGES_DIRECTORY
+    - echo -e "033[33m ===> [结束] 还原依赖项 \033[0m"
+
+    - echo -e "033[33m ===> [开始] 编译 \033[0m"
+    - echo "命令dotnet build $CI_PROJECT_DIR/$PROJECT_CSPROJ -c ${PROJECT_BUILD}"
+    - dotnet build $CI_PROJECT_DIR/$PROJECT_CSPROJ -c ${PROJECT_BUILD}
+    - echo -e "033[33m ===> [结束] 编译 \033[0m"
+
+    - echo -e "033[33m ===> [开始] 发布 \033[0m"
+    - echo "命令dotnet publish $CI_PROJECT_DIR/$PROJECT_CSPROJ -c ${PROJECT_BUILD} -o $CI_PROJECT_DIR/$CI_COMMIT_REF_NAME/$PUBLISH_PATH"
+    - dotnet publish $CI_PROJECT_DIR/$PROJECT_CSPROJ -c ${PROJECT_BUILD} -o $CI_PROJECT_DIR/$CI_COMMIT_REF_NAME/$PUBLISH_PATH
+    - echo -e "033[33m ===> [结束] 发布 \033[0m"
+  artifacts:
+    name: "$IMAGE_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - $CI_COMMIT_REF_NAME/$PUBLISH_PATH/
+    expire_in: 30 days
+
+deploy-job:
+  stage: deploy
+  tags:
+    - aspnet-shell-runner
+  only:
+    refs:
+      - tags
+  dependencies:
+    - build-job
+  before_script:
+    - echo -e "033[33m ===> 登录镜像仓库：$CI_REGISTRY_HARBOR \033[0m"
+    # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    # - echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    
+    - echo -e "033[33m ===> 登录镜像仓库：$CI_REGISTRY_AWS \033[0m"
+    - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin $CI_REGISTRY_AWS
+  script:
+    - echo -e "033[33m ===> 项目名称:$CI_PROJECT_NAME 分支:$CI_COMMIT_REF_NAME TAG:$CI_COMMIT_TAG 项目路径:$CI_PROJECT_DIR \033[0m"
+
+    - echo -e "033[33m ===> [开始] 创建镜像 \033[0m"
+    - cd  $CI_COMMIT_REF_NAME/$PUBLISH_PATH/
+    - CI_REGISTRY_IMAGE=$IMAGE_NAME:$CI_COMMIT_TAG
+    - echo -e "033[33m ==> 镜像名称:$CI_REGISTRY_IMAGE \033[0m"
+    - LOCAL_PUBLISH_PATH=$CI_PROJECT_DIR/$CI_COMMIT_REF_NAME/$PUBLISH_PATH
+    - echo -e "033[33m ==> 本地发布目录:$LOCAL_PUBLISH_PATH \033[0m"
+    - echo -e "033[33m ==> Dockerfile:$LOCAL_PUBLISH_PATH/Dockerfile \033[0m"
+    - docker build -t "$CI_REGISTRY_IMAGE" -f $LOCAL_PUBLISH_PATH/Dockerfile --no-cache .
+    - echo -e "033[33m ===> [结束] 创建镜像 \033[0m"
+
+    - echo -e "033[33m ===> [开始] 推送镜像HARBOR \033[0m"
+    - docker tag "$CI_REGISTRY_IMAGE"  "$CI_REGISTRY_HARBOR"/"$CI_REGISTRY_IMAGE"
+    - docker push "$CI_REGISTRY_HARBOR"/"$CI_REGISTRY_IMAGE"
+    - docker rmi -f $CI_REGISTRY_HARBOR"/"$CI_REGISTRY_IMAGE
+    - echo -e "033[33m ===> [结束] 推送镜像HARBOR \033[0m"
+
+    - echo -e "033[33m ===> [开始] 推送镜像AWS \033[0m"
+    - docker tag "$CI_REGISTRY_IMAGE"  "$CI_REGISTRY_AWS"/"$CI_REGISTRY_IMAGE"
+    - docker push "$CI_REGISTRY_AWS"/"$CI_REGISTRY_IMAGE"
+    - docker rmi -f $CI_REGISTRY_AWS"/"$CI_REGISTRY_IMAGE
+    - echo -e "033[33m ===> [结束] 推送镜像AWS \033[0m"
+
+    - docker rmi -f $CI_REGISTRY_IMAGE

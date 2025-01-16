@@ -1,0 +1,17 @@
+{
+  "SqlSugar": {
+    "DefaultElement": "ing",
+    "Elements": [
+      {
+        "Name": "ing",
+        "DatabaseType": 0,
+        "ConnectionString": "server=192.168.1.120;database=ing;user id=root;port=3306;password=root;sslmode=Disabled;allowuservariables=True",
+        "OutputPath": "Repositories",
+        "Namespace": "SActivity.Banky.API.Repositories",
+        "UseSubPath": true,
+        "UseTinyFx": false,
+        "IsDeletePartial": false
+      }
+    ]
+  }
+}

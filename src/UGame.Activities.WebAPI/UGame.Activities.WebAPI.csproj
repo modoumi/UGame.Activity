@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Activities\Banky\UGame.Activity.Banky\UGame.Activity.Banky.csproj" />
+		<ProjectReference Include="..\Activities\CoinWheel\UGame.Activity.CoinWheel\UGame.Activity.CoinWheel.csproj" />
+		<ProjectReference Include="..\Activities\CoinSignin\UGame.Activity.CoinSignin\UGame.Activity.CoinSignin.csproj" />
+		<ProjectReference Include="..\Activities\Cupon\UGame.Activity.Cupon\UGame.Activity.Cupon.csproj" />
+		<ProjectReference Include="..\Activities\DailyWheel\UGame.Activity.DailyWheel\UGame.Activity.DailyWheel.csproj" />
+		<ProjectReference Include="..\Activities\Rebate\UGame.Activity.Rebate\UGame.Activity.Rebate.csproj" />
+		<ProjectReference Include="..\Activities\RedpackRain\UGame.Activity.RedpackRain\UGame.Activity.RedpackRain.csproj" />
+		<ProjectReference Include="..\Activities\Redpack\UGame.Activity.Redpack\UGame.Activity.Redpack.csproj" />
+		<ProjectReference Include="..\Activities\UGame.Activity.Signin\UGame.Activity.Signin.csproj" />
+		<ProjectReference Include="..\Activities\TreasureBox\UGame.Activity.TreasureBox\UGame.Activity.TreasureBox.csproj" />
+		<ProjectReference Include="..\RewardCenter\UGame.RewardCenter.API\UGame.RewardCenter.API.csproj" />
+		<ProjectReference Include="..\Tasks\UGame.Activity.Tasks.API\UGame.Activity.Tasks.API.csproj" />
+	</ItemGroup>
+
+</Project>

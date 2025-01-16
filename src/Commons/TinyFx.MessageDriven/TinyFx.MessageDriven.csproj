@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Description>TinyFx 消息驱动组件</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+    <PackageReference Include="TinyFx.Core" Version="1.0.1" />
+    <PackageReference Include="TinyFx.Data.MySql" Version="3.15.2" />
+    <PackageReference Include="TinyFx.Data.SqlSugar" Version="3.15.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

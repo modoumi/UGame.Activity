@@ -1,0 +1,81 @@
+{
+  "AppOptions": {
+    "AppId": "activity01",
+    "ServerUrl": "http://192.168.1.129:9030",
+    "ImageBaseUrl": "https://upload.777gana.com",
+    "MessageImgUrl": "https://upload.777gana.com",
+    "MarqueeLangKey": "activity01_marquee",
+    "MyGameRandomAppNumber": 6
+  },
+  "Project": {
+    "ProjectId": "activity01",
+    "Description": "activity01"
+  }, 
+  "Metirc": {
+        "AppMetrics": {
+            "ReportingEnabled": false
+        },
+        "AspNetMetrics": {
+            "IgnoredHttpStatusCodes": [ 404 ],
+            "HealthEndpointEnabled": false,
+            "MetricsEndpointEnabled": true,
+            "MetricsTextEndpointEnabled": true,
+            "PingEndpointEnabled": false,
+            "DefaultTrackingEnabled": false,
+            "OAuth2TrackingEnabled": false,
+            "IgnoredRoutesRegexPatterns": [ "/^test/" ],
+            "FilterRoute": {
+                "ForNameSpace": [],
+                "ForService": [],
+                "ForMethod": []
+            }
+        }
+    },
+  "RabbitMQ": {
+    "MessageAssemblies": [
+      "Xxyy.MQ.dll", 
+      "SActivity.Redpack.API.dll",
+      "SActivity.TreasureBox.API.dll"
+    ],
+    "ConsumerAssemblies": [ 
+      "SActivity.Redpack.API.dll",
+      "SActivity.TreasureBox.API.dll"
+    ]
+  },
+  "AspNet": {
+    "PathBase": "/activity01",
+    "HostingStartupAssemblies":["Activities.WebAPI.dll","SActivity.TreasureBox.API.dll"]
+  },
+  "HttpClient": {
+    "Clients": {
+      "xxyy.banks": {
+        "BaseAddress": "http://192.168.1.129:9008",
+        "RequestHeaders": [],
+        "Timeout": 100000,
+        "RetryCount": 3,
+        "Settings": []
+      },
+      "xxyy.server": {
+        "BaseAddress": "http://192.168.1.129:9009",
+        "RequestHeaders": [],
+        "Timeout": 100000,
+        "RetryCount": 3,
+        "Settings": []
+      },
+      "xxyy_partners": {
+        "BaseAddress": "http://192.168.1.129:9010",
+        "RequestHeaders": [],
+        "Timeout": 100000,
+        "RetryCount": 3,
+        "Settings": []
+      },
+      "xxyy_partners_https": {
+        "BaseAddress": "https://192.168.1.129:8443",
+        "RequestHeaders": [],
+        "Timeout": 100000,
+        "RetryCount": 3,
+        "Settings": []
+      }
+    }
+  }
+}
